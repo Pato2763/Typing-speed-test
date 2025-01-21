@@ -1,12 +1,15 @@
 import { useState } from "react";
-import "./App.css";
+import { useNavigate } from "react-router-dom";
+
 const DifficultySelectorForm = ({ setDifficulty }) => {
   const [activeButton, setActiveButton] = useState(null);
   const difficulties = ["easy", "medium", "hard"];
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setDifficulty(difficulties[activeButton]);
+    navigate(`test/${difficulties[activeButton]}`);
   };
 
   const handleClick = (index) => {

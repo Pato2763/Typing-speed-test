@@ -1,12 +1,16 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import CountdownClock from "./CountdownClock";
+import Home from "./pages/Home";
+import TestPage from "./pages/TestPage";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <>
-      <p>project</p>
-      <CountdownClock />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="test/:difficulty" element={<TestPage />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

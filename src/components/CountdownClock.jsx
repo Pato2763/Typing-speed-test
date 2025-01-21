@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownClock = () => {
-  const [timeLeft, setTimeLeft] = useState(60);
+const CountdownClock = ({ setTestOver }) => {
+  const [timeLeft, setTimeLeft] = useState(10);
 
   useEffect(() => {
-    if (timeLeft <= 0) return;
+    if (timeLeft <= 0) {
+      setTestOver(true);
+      return;
+    }
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
