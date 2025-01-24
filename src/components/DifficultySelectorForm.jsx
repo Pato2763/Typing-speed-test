@@ -25,7 +25,7 @@ const DifficultySelectorForm = ({ setDifficulty }) => {
           onClick={() => handleClick(index)}
           className={`button ${activeButton === index ? "clicked" : ""}`}
         >
-          {difficulty}
+          {difficulty[0].toUpperCase() + difficulty.slice(1)}
         </button>
       ))}
       <button

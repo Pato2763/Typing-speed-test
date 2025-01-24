@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getTestText } from "../../utils";
+import CountdownClock from "../components/CountdownClock";
+import { getAccuracy, getWpm } from "../../test-page-calculations";
+import "./TestPage.css";
+import Modal from "@mui/material/Modal";
 
 const TestPage = () => {
   const inputRef = useRef(null);
@@ -12,20 +16,26 @@ const TestPage = () => {
   const { difficulty } = useParams();
   const [text, setText] = useState("sample");
   const [loading, setLoading] = useState(true);
+  const [testOver, setTestOver] = useState(false);
+  const [accuracy, setAccuracy] = useState(100);
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [wpm, setWpm] = useState(0);
 
   useEffect(() => {
-    console.log("here 2");
     setText(getTestText(difficulty).text);
     setLoading(false);
-    console.log(inputRef.current);
   }, []);
 
   useEffect(() => {
     if (inputRef.current !== null) {
-      console.log(inputRef);
       inputRef.current.focus();
     }
   }, [loading]);
+
+  useEffect(() => {
+    setAccuracy(getAccuracy(correctWrongChars));
+    setWpm(getWpm(correctWrongChars.length, timeLeft));
+  }, [correctWrongChars]);
 
   const inputChange = (e) => {
     const characters = charRefs.current;
@@ -51,12 +61,11 @@ const TestPage = () => {
   };
 
   return (
-    <div>
-      <p>test page</p>
+    <div className="test-container">
       {loading ? (
         <p>loading...</p>
       ) : (
-        <div>
+        <div className="text-container">
           <input
             type="text"
             className="typing-input"
@@ -66,15 +75,30 @@ const TestPage = () => {
           {text.split("").map((char, index) => (
             <span
               key={index}
-              className={`${charIndex === index ? "active-text" : ""} ${
-                correctWrongChars[index]
-              }`}
+              className={`test-text ${
+                charIndex === index ? "active-text" : ""
+              } ${correctWrongChars[index]}`}
               ref={(e) => (charRefs.current[index] = e)}
             >
               {char}
             </span>
           ))}
-          <p>{mistakes}</p>
+          <div className="stats-container">
+            <CountdownClock
+              setTestOver={setTestOver}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+            />
+            <p>
+              Mistakes: <span className="bold">{mistakes}</span>
+            </p>
+            <p>
+              Accuracy: <span className="bold">{accuracy}%</span>
+            </p>
+            <p>
+              WPM: <span className="bold">{wpm}</span>
+            </p>
+          </div>
         </div>
       )}
     </div>

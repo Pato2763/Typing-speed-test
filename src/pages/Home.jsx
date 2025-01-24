@@ -2,6 +2,7 @@ import CountdownClock from "../components/CountdownClock.jsx";
 import DifficultySelectorForm from "../components/DifficultySelectorForm.jsx";
 import { useEffect, useState } from "react";
 import { getTestText } from "../../utils.js";
+import "./HomePage.css";
 
 function Home() {
   const [difficulty, setDifficulty] = useState(null);
@@ -14,14 +15,13 @@ function Home() {
   }, [difficulty]);
 
   return (
-    <>
-      <p>home</p>
-      {difficulty ? (
-        <CountdownClock setTestOver={setTestOver} />
-      ) : (
-        <DifficultySelectorForm setDifficulty={setDifficulty} />
-      )}
-    </>
+    <div className="home-container">
+      <h1>Typing Test</h1>
+      <p>
+        Select the difficulty and then start. The test will start immediately.
+      </p>
+      <DifficultySelectorForm setDifficulty={setDifficulty} />
+    </div>
   );
 }
 

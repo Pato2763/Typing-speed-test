@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownClock = ({ setTestOver }) => {
-  const [timeLeft, setTimeLeft] = useState(10);
-
+const CountdownClock = ({ setTestOver, timeLeft, setTimeLeft }) => {
   useEffect(() => {
     if (timeLeft <= 0) {
       setTestOver(true);
@@ -24,8 +22,7 @@ const CountdownClock = ({ setTestOver }) => {
 
   return (
     <div>
-      <h1>Countdown Timer</h1>
-      <h2>{formatTime(timeLeft)}</h2>
+      <p>{formatTime(timeLeft)}</p>
     </div>
   );
 };

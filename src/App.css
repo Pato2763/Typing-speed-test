@@ -1,19 +1,12 @@
+body {
+  font-family: "Inter";
+  font-weight: 400;
+  color: #292d31;
+  background-color: #d1ccdc;
+}
 p {
   color: #292d31;
-}
-
-span.correct-text {
-  color: #4a840b;
-  font-weight: bold;
-}
-
-span.incorrect-text {
-  color: #fc738c;
-  font-weight: bold;
-}
-
-span.active-text {
-  border-bottom: 3px solid #3bb89a;
+  font-family: "Inter";
 }
 
 .difficultyButtonContainer {
@@ -38,8 +31,8 @@ span.active-text {
 }
 
 .button:hover {
-  background-color: #3bb89a; /* Darker shade on hover */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  background-color: #3bb89a;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .clicked {
@@ -51,10 +44,4 @@ span.active-text {
   background-color: #a0a0a0;
   color: #ffffff;
   cursor: not-allowed;
-}
-
-input.typing-input {
-  opacity: 0;
-  z-index: -999;
-  position: absolute;
 }
