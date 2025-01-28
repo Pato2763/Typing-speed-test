@@ -4,7 +4,8 @@ import { getTestText } from "../../utils";
 import CountdownClock from "../components/CountdownClock";
 import { getAccuracy, getWpm } from "../../test-page-calculations";
 import "./TestPage.css";
-import Modal from "@mui/material/Modal";
+import TypingTestComplete from "../components/TypingTestComplete";
+import { useNavigate } from "react-router-dom";
 
 const TestPage = () => {
   const inputRef = useRef(null);
@@ -16,10 +17,11 @@ const TestPage = () => {
   const { difficulty } = useParams();
   const [text, setText] = useState("sample");
   const [loading, setLoading] = useState(true);
-  const [testOver, setTestOver] = useState(false);
+  const [testComplete, setTestComplete] = useState(false);
   const [accuracy, setAccuracy] = useState(100);
   const [timeLeft, setTimeLeft] = useState(60);
   const [wpm, setWpm] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setText(getTestText(difficulty).text);
@@ -59,11 +61,25 @@ const TestPage = () => {
     }
     setPrevTyped(typedChars);
   };
+  const goBackClick = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="test-container">
       {loading ? (
         <p>loading...</p>
+      ) : testComplete ? (
+        <TypingTestComplete
+          accuracy={accuracy}
+          wpm={wpm}
+          mistakes={mistakes}
+          setTestComplete={setTestComplete}
+          setTimeLeft={setTimeLeft}
+          setAccuracy={setAccuracy}
+          setWpm={setWpm}
+          setMistakes={setMistakes}
+        />
       ) : (
         <div className="text-container">
           <input
@@ -85,7 +101,7 @@ const TestPage = () => {
           ))}
           <div className="stats-container">
             <CountdownClock
-              setTestOver={setTestOver}
+              setTestOver={setTestComplete}
               timeLeft={timeLeft}
               setTimeLeft={setTimeLeft}
             />
@@ -98,6 +114,9 @@ const TestPage = () => {
             <p>
               WPM: <span className="bold">{wpm}</span>
             </p>
+            <button onClick={goBackClick} className="button go-back-button">
+              Go Back
+            </button>
           </div>
         </div>
       )}

@@ -11,6 +11,7 @@ p {
 
 .difficultyButtonContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
 }
 
