@@ -19,7 +19,7 @@ const TestPage = () => {
   const [loading, setLoading] = useState(true);
   const [testComplete, setTestComplete] = useState(false);
   const [accuracy, setAccuracy] = useState(100);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(6000);
   const [wpm, setWpm] = useState(0);
   const navigate = useNavigate();
 
